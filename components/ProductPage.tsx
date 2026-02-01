@@ -33,62 +33,62 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
   return (
     <div className="pt-32 pb-12 min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* Breadcrumb */}
         <div className="text-white/40 text-[10px] uppercase tracking-[0.2em] mb-8">
           Accueil / Collection / <span className="text-gold">{product.name}</span>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-16 relative">
-          
+
           {/* LEFT: GALLERY (Sticky on Desktop) */}
           <div className="w-full lg:w-[55%] h-fit">
             <div className="flex flex-col-reverse md:flex-row gap-4">
-               {/* Thumbnails */}
-               <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
-                  {product.images.map((img, idx) => (
-                    <div 
-                      key={idx} 
-                      onClick={() => setSelectedImage(idx)}
-                      className={`min-w-[80px] w-20 h-24 cursor-pointer overflow-hidden border transition-all duration-300 ${selectedImage === idx ? 'border-gold opacity-100' : 'border-transparent opacity-50 hover:opacity-80'}`}
-                    >
-                      <img src={img} alt="" className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-               </div>
-               
-               {/* Main Image with Zoom Effect */}
-               <div className="flex-1 relative group overflow-hidden bg-surface aspect-[4/5] cursor-none">
-                 <img 
-                   src={product.images[selectedImage]} 
-                   alt={product.name} 
-                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125 origin-center" 
-                   style={{ transformOrigin: 'var(--zoom-origin, center)' }}
-                   onMouseMove={(e) => {
-                     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-                     const x = (e.clientX - left) / width * 100;
-                     const y = (e.clientY - top) / height * 100;
-                     e.currentTarget.style.setProperty('--zoom-origin', `${x}% ${y}%`);
-                   }}
-                 />
-                 <div className="absolute top-4 right-4 bg-black/40 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-widest text-white rounded-full border border-white/10">
-                   Zoom
-                 </div>
-               </div>
+              {/* Thumbnails */}
+              <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+                {(product.images && product.images.length > 0 ? product.images : ['/image.png']).map((img, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setSelectedImage(idx)}
+                    className={`min-w-[80px] w-20 h-24 cursor-pointer overflow-hidden border transition-all duration-300 ${selectedImage === idx ? 'border-gold opacity-100' : 'border-transparent opacity-50 hover:opacity-80'}`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+
+              {/* Main Image with Zoom Effect */}
+              <div className="flex-1 relative group overflow-hidden bg-surface aspect-[4/5] cursor-none">
+                <img
+                  src={product.images?.[selectedImage] || '/image.png'}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125 origin-center"
+                  style={{ transformOrigin: 'var(--zoom-origin, center)' }}
+                  onMouseMove={(e) => {
+                    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+                    const x = (e.clientX - left) / width * 100;
+                    const y = (e.clientY - top) / height * 100;
+                    e.currentTarget.style.setProperty('--zoom-origin', `${x}% ${y}%`);
+                  }}
+                />
+                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-widest text-white rounded-full border border-white/10">
+                  Zoom
+                </div>
+              </div>
             </div>
           </div>
 
           {/* RIGHT: INFO (Sticky) */}
           <div className="w-full lg:w-[45%] flex flex-col lg:sticky lg:top-32 h-fit">
-            
+
             <Reveal>
               <div className="flex justify-between items-start mb-2">
-                 <h1 className="font-serif text-5xl text-white leading-tight">{product.name}</h1>
-                 <button className="text-gold hover:scale-110 transition-transform">
-                    <Heart size={24} strokeWidth={1} />
-                 </button>
+                <h1 className="font-serif text-5xl text-white leading-tight">{product.name}</h1>
+                <button className="text-gold hover:scale-110 transition-transform">
+                  <Heart size={24} strokeWidth={1} />
+                </button>
               </div>
-              
+
               <div className="flex items-center gap-4 mb-8">
                 <span className="font-serif text-3xl text-gold">{product.price} €</span>
                 <div className="h-4 w-[1px] bg-white/20"></div>
@@ -116,13 +116,13 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
               <div className="mb-8 p-6 bg-surface border border-white/5 rounded-sm">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-xs text-white uppercase tracking-widest flex items-center gap-2">
-                     <Ruler size={14} className="text-gold"/> Taille
+                    <Ruler size={14} className="text-gold" /> Taille
                   </span>
                   <button className="text-[10px] text-gold underline underline-offset-4 uppercase tracking-wider hover:text-white transition-colors">Guide des tailles</button>
                 </div>
                 <div className="flex flex-wrap gap-3">
                   {['XS', 'S', 'M', 'L', 'Universelle'].map(size => (
-                    <button 
+                    <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={`h-10 px-6 border text-xs uppercase tracking-wider transition-all duration-300 ${selectedSize === size ? 'border-gold text-black bg-gold font-medium' : 'border-white/20 text-white hover:border-white'}`}
@@ -132,29 +132,28 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
                   ))}
                 </div>
                 <p className="mt-4 text-[10px] text-gray-500 flex items-center gap-2">
-                   <Info size={12}/> Modèle ajustable grâce à sa chaînette d'extension de 10cm.
+                  <Info size={12} /> Modèle ajustable grâce à sa chaînette d'extension de 10cm.
                 </p>
               </div>
             </Reveal>
 
             {/* CTA */}
             <Reveal delay={0.3}>
-              <button 
+              <button
                 onClick={handleAddToCart}
                 disabled={isAdding}
-                className={`w-full py-5 text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden group mb-4 ${
-                  isAdding ? 'bg-green-900 text-white' : 'bg-white text-black hover:bg-gold'
-                }`}
+                className={`w-full py-5 text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden group mb-4 ${isAdding ? 'bg-green-900 text-white' : 'bg-white text-black hover:bg-gold'
+                  }`}
               >
                 <span className={`relative z-10 flex items-center justify-center gap-3 ${isAdding ? 'scale-110' : ''}`}>
                   {isAdding ? <><Check size={18} /> Ajouté au panier</> : `Ajouter au panier • ${product.price} €`}
                 </span>
                 {!isAdding && <div className="absolute inset-0 bg-gold translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0"></div>}
               </button>
-              
+
               <div className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest text-gold mb-10">
-                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                 En stock - Expédié sous 24h
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                En stock - Expédié sous 24h
               </div>
             </Reveal>
 
@@ -180,7 +179,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
                 { id: 'liv', title: 'Livraison & Coffret', content: "Livré dans son écrin luxe 'Lumière de Corps' avec pochette de voyage en satin. Expédition Colissimo suivie offerte dès 100€ d'achat." }
               ].map((item) => (
                 <div key={item.id} className="border-b border-white/10 last:border-0">
-                  <button 
+                  <button
                     onClick={() => toggleAccordion(item.id)}
                     className="w-full py-5 flex justify-between items-center text-left text-white hover:text-gold transition-colors group"
                   >
@@ -193,16 +192,16 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
                 </div>
               ))}
             </div>
-            
-             {/* Certificate Badge */}
+
+            {/* Certificate Badge */}
             <div className="mt-8 p-4 bg-[#151515] border border-gold/10 flex items-center gap-4">
-               <div className="p-2 border border-gold rounded-full">
-                  <ShieldCheck size={20} className="text-gold" strokeWidth={1}/>
-               </div>
-               <div>
-                  <h4 className="font-serif text-white text-sm">Certificat d'Authenticité Inclus</h4>
-                  <p className="text-[10px] text-gray-500">Chaque pièce est numérotée et certifiée.</p>
-               </div>
+              <div className="p-2 border border-gold rounded-full">
+                <ShieldCheck size={20} className="text-gold" strokeWidth={1} />
+              </div>
+              <div>
+                <h4 className="font-serif text-white text-sm">Certificat d'Authenticité Inclus</h4>
+                <p className="text-[10px] text-gray-500">Chaque pièce est numérotée et certifiée.</p>
+              </div>
             </div>
 
           </div>
@@ -210,20 +209,20 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
 
         {/* BELOW FOLD SECTIONS */}
         <div className="mt-32">
-           <h3 className="font-serif text-3xl text-white mb-10 text-center">Vous aimerez aussi</h3>
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[1,2,3,4].map((i) => (
-                 <div key={i} className="group cursor-pointer">
-                    <div className="aspect-[3/4] bg-surface mb-4 overflow-hidden">
-                       <img src={`https://source.unsplash.com/random/400x500?jewelry&sig=${i+10}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
-                    </div>
-                    <div className="text-center">
-                       <h4 className="font-serif text-lg text-white group-hover:text-gold transition-colors">Chaîne Divine {i}</h4>
-                       <p className="text-xs text-gray-500">89 €</p>
-                    </div>
-                 </div>
-              ))}
-           </div>
+          <h3 className="font-serif text-3xl text-white mb-10 text-center">Vous aimerez aussi</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="group cursor-pointer">
+                <div className="aspect-[3/4] bg-surface mb-4 overflow-hidden">
+                  <img src={`https://source.unsplash.com/random/400x500?jewelry&sig=${i + 10}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                </div>
+                <div className="text-center">
+                  <h4 className="font-serif text-lg text-white group-hover:text-gold transition-colors">Chaîne Divine {i}</h4>
+                  <p className="text-xs text-gray-500">89 €</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>
@@ -231,10 +230,10 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
       {/* Sticky Mobile CTA */}
       <div className="lg:hidden fixed bottom-0 left-0 w-full bg-background/90 backdrop-blur-lg border-t border-white/10 p-4 z-30 flex gap-4 items-center animate-fade-in-up">
         <div className="flex flex-col">
-           <span className="text-[10px] text-white/60 uppercase">Total</span>
-           <span className="font-serif text-gold text-xl">{product.price} €</span>
+          <span className="text-[10px] text-white/60 uppercase">Total</span>
+          <span className="font-serif text-gold text-xl">{product.price} €</span>
         </div>
-        <button 
+        <button
           onClick={handleAddToCart}
           className="flex-1 bg-white text-black font-bold py-3 text-xs uppercase tracking-widest hover:bg-gold transition-colors"
         >
