@@ -142,7 +142,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onAddToCart }) => {
               <button
                 onClick={handleAddToCart}
                 disabled={isAdding}
-                className={`w-full py-5 text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden group mb-4 ${isAdding ? 'bg-green-900 text-white' : 'bg-white text-black hover:bg-gold'
+                className={`w-full py-5 text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden group mb-4 btn-shimmer ${isAdding ? 'bg-green-900 text-white shadow-green-500/50' : 'bg-gradient-gold text-black shadow-gold-lg hover:shadow-rose hover:scale-[1.02] active:scale-[0.98]'
                   }`}
               >
                 <span className={`relative z-10 flex items-center justify-center gap-3 ${isAdding ? 'scale-110' : ''}`}>

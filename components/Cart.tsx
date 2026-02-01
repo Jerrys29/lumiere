@@ -22,7 +22,8 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, items, onUpdateQuantity, o
       />
 
       {/* Drawer */}
-      <div className={`fixed top-0 right-0 h-full w-full md:w-[500px] bg-[#0F0F0F] z-[51] transform transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) shadow-[-10px_0_40px_rgba(0,0,0,0.8)] border-l border-white/5 flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-full md:w-[500px] bg-[#0F0F0F] z-[51] transform transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) shadow-[-10px_0_40px_rgba(0,0,0,0.8)] border-l flex flex-col ${isOpen ? 'translate-x-0 border-gold-rose/20' : 'translate-x-full border-white/5'
+        }`}>
 
         {/* Header */}
         <div className="p-8 border-b border-white/5 flex justify-between items-center bg-[#0F0F0F]">
@@ -105,7 +106,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, items, onUpdateQuantity, o
               <span className="text-gold">{subtotal} €</span>
             </div>
 
-            <button className="w-full bg-white text-black font-bold py-5 uppercase tracking-[0.2em] text-xs hover:bg-gold transition-colors group flex items-center justify-center gap-3">
+            <button className="w-full bg-gradient-gold text-black font-bold py-5 uppercase tracking-[0.2em] text-xs transition-all duration-300 group flex items-center justify-center gap-3 btn-shimmer shadow-gold-lg hover:shadow-rose hover:scale-[1.02] active:scale-[0.98]">
               Commander
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>

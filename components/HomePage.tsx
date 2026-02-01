@@ -42,14 +42,19 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, featuredProduct, testim
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
           <Reveal delay={0.2}>
-            <span className="font-script text-3xl md:text-5xl text-gold-light mb-4 block drop-shadow-lg">
+            <span className="font-script text-3xl md:text-5xl mb-4 block drop-shadow-lg text-glow" style={{
+              background: 'linear-gradient(135deg, #E5D4A6 0%, #C9A962 50%, #B76E79 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
               L'Art de Sublimer Vos Courbes
             </span>
           </Reveal>
 
           <Reveal delay={0.4}>
-            <h2 className="font-serif text-5xl md:text-8xl text-white mb-6 tracking-wide leading-tight text-glow">
-              ÉLÉGANCE <br /> <span className="italic text-gold">INTEMPORELLE</span>
+            <h2 className="font-serif text-5xl md:text-8xl text-white mb-6 tracking-wide leading-tight text-glow-strong">
+              ÉLÉGANCE <br /> <span className="italic text-gold animate-glow">INTEMPORELLE</span>
             </h2>
           </Reveal>
 
@@ -63,9 +68,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, featuredProduct, testim
             <div className="flex gap-4">
               <button
                 onClick={() => onNavigate('PRODUCT')}
-                className="group relative px-8 py-4 bg-transparent text-gold border border-gold hover:text-black overflow-hidden transition-all duration-500"
+                className="group relative px-8 py-4 bg-transparent text-gold border-2 border-gold hover:text-black overflow-hidden transition-all duration-500 btn-shimmer shadow-gold hover:shadow-gold-lg active:scale-98"
               >
-                <div className="absolute inset-0 w-full h-full bg-gold -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
+                <div className="absolute inset-0 w-full h-full bg-gradient-gold -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
                 <span className="relative z-10 uppercase tracking-[0.2em] text-sm font-medium flex items-center gap-2">
                   Découvrir la Collection
                 </span>
@@ -76,11 +81,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, featuredProduct, testim
 
         {/* Scroll Indicator */}
         <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-110"
           onClick={scrollToContent}
         >
-          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-gold to-transparent animate-pulse"></div>
-          <span className="text-[10px] uppercase tracking-widest text-gold">Explorer</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-gold-rose to-transparent animate-pulse"></div>
+          <span className="text-[10px] uppercase tracking-widest text-gold-champagne">Explorer</span>
         </div>
       </section>
 
@@ -136,32 +141,32 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, featuredProduct, testim
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {COLLECTION_PRODUCTS.map((prod, idx) => (
               <Reveal key={prod.id} delay={idx * 0.1}>
-                <div className="group relative product-card cursor-pointer" onClick={() => onNavigate('PRODUCT')}>
-                  <div className="relative aspect-[4/5] overflow-hidden bg-gray-900">
+                <div className="group relative product-card cursor-pointer transition-all duration-500 hover:-translate-y-2" onClick={() => onNavigate('PRODUCT')}>
+                  <div className="relative aspect-[4/5] overflow-hidden bg-gray-900 shadow-lg group-hover:shadow-gold-lg transition-all duration-500">
                     <img
                       src={prod.images?.[0] || '/image.png'}
                       alt={prod.name}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
                     />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent group-hover:from-black/20 transition-all duration-500" />
                     {prod.isNew && (
-                      <span className="absolute top-4 left-4 bg-gold text-black text-[10px] font-bold uppercase tracking-widest px-2 py-1">
+                      <span className="absolute top-4 left-4 bg-gradient-gold text-black text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 shadow-gold">
                         Nouveau
                       </span>
                     )}
 
                     {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                    <div className="absolute inset-0 bg-gradient-to-t from-gold-rose/30 via-gold-champagne/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-[1px]">
                       <div className="w-16 h-16 rounded-full border border-white/30 flex items-center justify-center text-white scale-50 group-hover:scale-100 transition-transform duration-300 delay-75">
                         <span className="uppercase text-xs tracking-widest">Voir</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-6 text-center group-hover:-translate-y-2 transition-transform duration-300">
-                    <h3 className="font-serif text-2xl text-white mb-1">{prod.name}</h3>
+                  <div className="pt-6 text-center group-hover:-translate-y-2 transition-all duration-300">
+                    <h3 className="font-serif text-2xl text-white mb-1 group-hover:text-gold-champagne transition-colors">{prod.name}</h3>
                     <p className="text-xs text-gold uppercase tracking-widest mb-2">{prod.category}</p>
-                    <span className="text-white/60 font-light">{prod.price} €</span>
+                    <span className="text-white/60 font-light group-hover:text-white transition-colors">{prod.price} €</span>
                   </div>
                 </div>
               </Reveal>
